@@ -27,12 +27,15 @@ def calculate_score(hand):
     num_aces = hand.count("A")
     
     for card in hand:
-        if card[-1] in ["J", "Q", "K"]:
+        if card[0].isdigit():
+            if card[0] == "1":
+                score += 10
+            else:
+                score += int(card[0])
+        elif card[0] in ["J", "Q", "K"]:
             score += 10
-        elif card[-1] == "A":
+        elif card[0] == "A":
             score += 11
-        else:
-            score += int(card[:-1])
         
     while score > 21 and num_aces > 0:
         score -= 10
@@ -64,61 +67,50 @@ while num_players < 0:
 player_hands = [deal(deck) for i in range(num_players)]
 
 for i in range(num_players):
-    print(f"Player {i + 1} hand: {player_hands[i]}")
+    print(f"Player {i + 1}'s cards: \n{player_hands[i]}")
+    print(f"Acknowledge that you have seen your cards player {i + 1} by entering any key.")
+    input().strip()
+print("Now that everyone knows their cards, let's play!")
 
-for i in range(num_players):  
-    while True:
-        print(f"Player {i + 1} hand: {player_hands[i]}")
+while True:
+    for i in range(num_players): 
+        print(f"Player {i + 1}'s cards: {player_hands[i]}")
         print(f"Player {i+1} would you like to hit or stick?")
         action = input().strip()
 
         if action.lower() == "hit":
-            card = hit(deck, hand)
-            player_hands[i].append(card)  
+            player_hands[i] = hit(deck, player_hands[i])
             if calculate_score(player_hands[i]) > 21:
+                print(f"Player {i + 1} cards: {player_hands[i]}")
                 print(f"Player {i+1} you have busted. Enter any key to acknowlege this.")
-                busted = input(0).strip()
+                busted = input().strip()
                 break
         elif action.lower() == "stick":
             break
         else:
             print("Invalid input. Please enter either hit or stick: ")
-    
-    busted_players = []
-    max_score = 0
-    winners = []
+            action = input().strip()
+    break
+# Scores are stored in player_hands
+max_score = 0
+max_players = []
+# Find out who busted
+for i in range(len(player_hands)):
+    if calculate_score(player_hands[i]) > max_score and calculate_score(player_hands[i]) > 2 and calculate_score(player_hands[i]) <= 21:
+        max_score = calculate_score(player_hands[i])
+    if calculate_score(player_hands[i]) > 21:
+        print(f"Player {i + 1} has busted.")
+    if calculate_score(player_hands[i]) == max_score:
+        max_players.append(i)
 
-    for i in range(num_players):
-        score = calculate_score(player_hands[i])
-        
-        if score <= 21:
-            if score > max_score:
-                max_score = score
-                winners = [i + 1]
-            elif score == max_score:
-                winners.append(i + 1)
-        else:
-            busted_players.append(i + 1)
-        
-    if busted_players:
-        print(f"Player {', '.join(map(str, busted_players))} has busted")
-    
-    if winners:
-        if len(winners) == 1:
-            print(f"Player {winner[0]} got the highest score of {max_score}.")
-        else:
-            print(f"Players {' and '.join(map(str, winners))} tied for the highest score of {max_score}")
-    
-    if not winners and not busted_players:
-        print("Nobody won.")
 
-#print player x's cards
-for i in range(num_players):
-    print(f"Player {(i+1)}'s cards: {player_hands[i]}")
-    print(f"Acknowledge that you have seen your cards player {(i+1)}'s by entering any key.")
-    user_input = input()
-
-print("Now that everyone knows their cards, let's play!")
+if len(max_players) == 1:
+    print(f"Player {max_players[0]} got the highest score of {max_score}.")
+if len(max_players) > 1:
+    print(f"Players {i} and {i+1} tied for the highest score of {max_score}")   
+if len(max_players) == 0:
+    print("Nobody won.")
+    
 
 #ask player if they want to hit or stick
 #print(f"Player {i+1} would you like to hit or stick?")
@@ -127,7 +119,7 @@ print("Now that everyone knows their cards, let's play!")
 
 #print(f"Player {i+1} you have busted. Enter any key to acknowlege this.")
 
-#print(f"Player {', '.join(map(str, busted_players))} has busted")
+#print(f"Player {} has busted")
 #print(f"Players X and Y tied for the highest score of N")
 
 #print(f"Player {winner[0]} got the highest score of {max_score}.")
