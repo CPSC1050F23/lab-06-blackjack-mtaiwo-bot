@@ -76,7 +76,7 @@ while True:
     for i in range(num_players): 
         print(f"Player {i + 1}'s cards: \n{player_hands[i]}")
         print(f"Player {i+1} would you like to hit or stick?")
-        action = input().strip()
+        action = input().strip().lower()
 
         if action.lower() == "hit":
             player_hands[i] = hit(deck, player_hands[i])
@@ -89,7 +89,7 @@ while True:
             break
         else:
             print("Invalid input. Please enter either hit or stick: ")
-            action = input().strip()
+            action = input().strip().lower()
     break
 # Scores are stored in player_hands
 max_score = 0
