@@ -81,11 +81,6 @@ for i in range(num_players):
         print(f"Player {i+1} would you like to hit or stick?")
         action = input().strip()
 
-        #input validation
-        while (action != "hit" and action != "Hit" and action != "stick" and action != "Stick"):
-            print("Invalid input. Please enter either hit or stick: ")
-            action = input().strip()
-
         if action == "hit" or action == "Hit":
             player_hands[i] = hit(deck, player_hands[i])
             print(f"Player {i + 1}'s cards: {player_hands[i]}")
@@ -95,7 +90,9 @@ for i in range(num_players):
                 break 
         elif action == "stick" or action == "Stick":
             break
-
+        else:
+            print("Invalid input. Please enter either hit or stick: ")
+            action = input().strip()
 # players with the max score are stored in max_players
 max_score = 0
 max_players = []
