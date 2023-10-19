@@ -95,8 +95,8 @@ for i in range(num_players):
 
         if action == "hit" or action == "Hit":
             player_hands[i] = hit(deck, player_hands[i])
-            print(f"Player {i + 1}'s cards: {player_hands[i]}")
             if calculate_score(player_hands[i]) > 21:
+                print(f"Player {i + 1}'s cards: {player_hands[i]}")
                 print(f"Player {i+1} you have busted. Enter any key to acknowledge this.")
                 busted = input().strip()
                 break 
