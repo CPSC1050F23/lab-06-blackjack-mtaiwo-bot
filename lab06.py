@@ -76,8 +76,8 @@ for i in range(num_players):
 print("Now that everyone knows their cards, let's play!")
 
 for i in range(num_players): 
+    print(f"Player {i + 1}'s cards:\n{player_hands[i]}")
     while True: 
-        print(f"Player {i + 1}'s cards:\n{player_hands[i]}")
         print(f"Player {i+1} would you like to hit or stick?")
         action = input().strip()
 
