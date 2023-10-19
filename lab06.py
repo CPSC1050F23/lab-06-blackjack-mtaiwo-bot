@@ -24,7 +24,8 @@ def hit(deck, hand):
 
 def calculate_score(hand):
     score = 0
-    num_aces = hand.count("A")
+    num_aces = 0
+    # num_aces = hand.count("A")
     # print("num aces: ", num_aces)
     
     for card in hand:
@@ -37,8 +38,8 @@ def calculate_score(hand):
         elif card[:-1] == "A":
             # print("found A")
             score += 11
-
-    
+            num_aces += 1
+        
     while score > 21 and num_aces > 0:
         score -= 10
         num_aces -= 1
@@ -88,7 +89,7 @@ for i in range(num_players):
         print(f"Player {i+1} would you like to hit or stick?")
         action = input().strip()
 
-        while not (action == "hit" or action == "Hit" or action == "stick" or action == "Stick"):
+        while action != "hit" and action != "Hit" and action != "stick" and action != "Stick":
             print("Invalid input. Please enter either hit or stick: ")
             action = input().strip()
 
