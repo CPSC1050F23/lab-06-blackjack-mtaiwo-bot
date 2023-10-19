@@ -82,7 +82,7 @@ for i in range(num_players):
         action = input().strip()
 
         #input validation
-        while action != "hit" and action != "Hit" and action != "stick" and action != "Stick":
+        while (action != "hit" and action != "Hit" and action != "stick" and action != "Stick"):
             print("Invalid input. Please enter either hit or stick: ")
             action = input().strip()
 
@@ -116,7 +116,7 @@ for i in range(len(player_hands)):
 if len(max_players) == 1:
     print(f"Player {max_players[0]} got the highest score of {max_score}.")
 elif len(max_players) > 1:
-    print(f"Players {max_players[0]} and {max_players[1]} tied for the highest score of {max_score}")   
+    print(f"Players {max_players[0]} and {max_players[1]} tied for the highest score of {max_score}.")   
 elif len(max_players) == 0:
     print("Nobody won.")
 
