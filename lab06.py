@@ -25,22 +25,26 @@ def hit(deck, hand):
 def calculate_score(hand):
     score = 0
     num_aces = hand.count("A")
+    # print("num aces: ", num_aces)
     
     for card in hand:
-        if card[0].isdigit():
-            if card[0] == "1":
-                score += 10
-            else:
-                score += int(card[0])
-        elif card[0] in ["J", "Q", "K"]:
+        # print("card val: ", card[:-1])
+        if card[:-1].isdigit():
+            score += int(card[:-1])
+        elif card[:-1] in "JQK":
+            # print("foundJQK")
             score += 10
-        elif card[0] == "A":
+        elif card[:-1] == "A":
+            # print("found A")
             score += 11
-        
+
+    
     while score > 21 and num_aces > 0:
         score -= 10
         num_aces -= 1
     
+    # print("hand: ", hand)
+    # print("score: ", score)
     return score
 
 deck = [
@@ -96,19 +100,26 @@ max_score = 0
 max_players = []
 # Find out who busted
 for i in range(len(player_hands)):
-    if calculate_score(player_hands[i]) > max_score and calculate_score(player_hands[i]) > 2 and calculate_score(player_hands[i]) <= 21:
-        max_score = calculate_score(player_hands[i])
-    if calculate_score(player_hands[i]) > 21:
+    players_score = calculate_score(player_hands[i])
+    if players_score > max_score and players_score > 2 and players_score <= 21:
+        max_score = players_score
+        # max_players.append(i)
+    if players_score > 21:
         print(f"Player {i + 1} has busted.")
-    if calculate_score(player_hands[i]) == max_score:
-        max_players.append(i)
+    # if players_score == max_score:
+        # max_players.append(i)
 
-    if len(max_players) == 1:
-        print(f"Player {i+1} got the highest score of {max_score}.")
-    elif len(max_players) > 1:
-        print(f"Players {i+1} and {i+2} tied for the highest score of {max_score}")   
-    elif len(max_players) == 0:
-        print("Nobody won.")
+for i in range(len(player_hands)):
+    players_score = calculate_score(player_hands[i])
+    if players_score == max_score:
+        max_players.append(i+1)
+
+if len(max_players) == 1:
+    print(f"Player {max_players[0]} got the highest score of {max_score}.")
+elif len(max_players) > 1:
+    print(f"Players {max_players[0]} and {max_players[1]} tied for the highest score of {max_score}")   
+elif len(max_players) == 0:
+    print("Nobody won.")
 
 
 #ask player if they want to hit or stick
