@@ -78,9 +78,6 @@ for i in range(num_players):
         print(f"Player {i+1} would you like to hit or stick?")
         action = input().strip()
 
-        while not action == "hit" or action == "Hit" or action == "stick" or action == "Stick":
-            print("Invalid input. Please enter either hit or stick: ")
-            action = input().strip()
         if action == "hit" or action == "Hit":
             player_hands[i] = hit(deck, player_hands[i])
             print(f"Player {i + 1}'s cards: {player_hands[i]}")
@@ -90,7 +87,10 @@ for i in range(num_players):
                 break 
         elif action == "stick" or action == "Stick":
             break
- 
+        else: 
+            print("Invalid input. Please enter either hit or stick: ")
+            action = input().strip()
+
 # Scores are stored in player_hands
 max_score = 0
 max_players = []
@@ -102,14 +102,14 @@ for i in range(len(player_hands)):
         print(f"Player {i + 1} has busted.")
     if calculate_score(player_hands[i]) == max_score:
         max_players.append(i)
-    
-if len(max_players) == 1:
-    print(f"Player {i} got the highest score of {max_score}.")
-if len(max_players) > 1:
-    print(f"Players {i} and {i+1} tied for the highest score of {max_score}")   
-if len(max_players) == 0:
-    print("Nobody won.")
-    
+
+    if len(max_players) == 1:
+        print(f"Player {i+1} got the highest score of {max_score}.")
+    elif len(max_players) > 1:
+        print(f"Players {i+1} and {i+2} tied for the highest score of {max_score}")   
+    elif len(max_players) == 0:
+        print("Nobody won.")
+
 
 #ask player if they want to hit or stick
 #print(f"Player {i+1} would you like to hit or stick?")
