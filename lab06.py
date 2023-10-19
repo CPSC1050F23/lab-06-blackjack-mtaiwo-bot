@@ -72,8 +72,8 @@ for i in range(num_players):
     input().strip()
 print("Now that everyone knows their cards, let's play!")
 
-while True:
-    for i in range(num_players): 
+for i in range(num_players): 
+    while True: 
         print(f"Player {i + 1}'s cards: \n{player_hands[i]}")
         print(f"Player {i+1} would you like to hit or stick?")
         action = input().strip()
@@ -84,13 +84,13 @@ while True:
             if calculate_score(player_hands[i]) > 21:
                 print(f"Player {i+1} you have busted. Enter any key to acknowledge this.")
                 busted = input().strip()
-                break
+                break 
         elif action == "stick" or action == "Stick":
             break
-        if action != "hit" or action != "Hit" or action != "stick" or action != "Stick":
+        else:
             print("Invalid input. Please enter either hit or stick: ")
             action = input().strip()
-    break
+ 
 # Scores are stored in player_hands
 max_score = 0
 max_players = []
@@ -102,8 +102,7 @@ for i in range(len(player_hands)):
         print(f"Player {i + 1} has busted.")
     if calculate_score(player_hands[i]) == max_score:
         max_players.append(i)
-
-
+    
 if len(max_players) == 1:
     print(f"Player {i} got the highest score of {max_score}.")
 if len(max_players) > 1:
