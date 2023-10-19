@@ -43,8 +43,8 @@ def calculate_score(hand):
         score -= 10
         num_aces -= 1
     
-    print("hand: ", hand)
-    print("score: ", score)
+    #print("hand: ", hand)
+    #print("score: ", score)
     return score
 
 deck = [
@@ -108,7 +108,7 @@ max_players = []
 # Find out who busted
 for i in range(len(player_hands)):
     players_score = calculate_score(player_hands[i])
-    print(f"Player {i + 1}'s score: {players_score}.")
+    #print(f"Player {i + 1}'s score: {players_score}.")
     if players_score > max_score and players_score > 2 and players_score <= 21:
         max_score = players_score
         # max_players.append(i)
