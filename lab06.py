@@ -52,7 +52,6 @@ deck = [
     "AS", "2S", "3S", "4S", "5S", "6S", "7S", "8S", "9S", "10S", "JS", "QS", "KS"
 ]
 
-
 import random
 #ask player for a seed
 print("Give me a seed:")
@@ -79,7 +78,12 @@ for i in range(num_players):
     print(f"Player {i + 1}'s cards:\n{player_hands[i]}")
     while True: 
         print(f"Player {i+1} would you like to hit or stick?")
-        action = input().strip()
+        action = input().strip().lower()
+
+        #input validation
+        while 'hit' not in action and 'Hit' not in action and 'stick' not in action and 'Stick' not in action:
+            print("Invalid input. Please enter either hit or stick: ")
+            action = input().strip().lower()
 
         if action == "hit" or action == "Hit":
             player_hands[i] = hit(deck, player_hands[i])
@@ -90,9 +94,7 @@ for i in range(num_players):
                 break 
         elif action == "stick" or action == "Stick":
             break
-        else:
-            print("Invalid input. Please enter either hit or stick: ")
-            action = input().strip()
+
 # players with the max score are stored in max_players
 max_score = 0
 max_players = []
@@ -116,7 +118,6 @@ elif len(max_players) > 1:
     print(f"Players {max_players[0]} and {max_players[1]} tied for the highest score of {max_score}.")   
 elif len(max_players) == 0:
     print("Nobody won.")
-
 
 #ask player if they want to hit or stick
 #print(f"Player {i+1} would you like to hit or stick?")
